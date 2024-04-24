@@ -1,5 +1,5 @@
 import React from 'react'
-import Navbar from '../components/navbar'
+import Navbar from '../Components/navbar'
 import { Grid, Stack } from '@mui/material'
 import Image from 'next/image'
 
@@ -7,7 +7,7 @@ const AboutUs = () => {
   return (
     <div style={{width:"100vw", height:"100vh", }}>
       <Navbar></Navbar>
-      <Grid container spacing={3} className='flex mt-60 justify-center w-full h-full'>
+      <Grid container spacing={10} className='flex mt-60 justify-center w-full h-full'>
         <Grid item xs={6} container className='flex justify-end'>
           <div className=' w-6/12 h-100'>
             <Stack spacing={2.5} className='flex '>
