@@ -12,7 +12,7 @@ const page = () => {
     {/* havent tested this feature, dont know if it works */}
   const interestsButtonCreate = () =>
   {
-    return interestsList.array.forEach(e => {
+    return interestsList.map(e => {
         <button className='btn btn-xs'>{e}</button>
     });
   }
@@ -53,7 +53,7 @@ const page = () => {
 
                 <Grid item container id="interest-container">
                     <Grid item xs={6}>
-                        {this.interestsButtonCreate}
+                        {interestsButtonCreate()}
                         {/* it's a nested container, where this one will be containing interests buttons*/}
                     </Grid>
                 </Grid>
