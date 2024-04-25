@@ -45,11 +45,11 @@ const page = () => {
             
             <Grid container>
                 <Grid item>
-                    <button className='btn'>back</button>
+                    <button className='btn'>Back</button>
                 </Grid>
 
                 <Grid item>
-
+                    <button className='btn btn-neutral'>Continue</button>
                 </Grid>
             </Grid>
         </Stack>
