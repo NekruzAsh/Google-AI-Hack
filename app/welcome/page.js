@@ -10,7 +10,7 @@ const page = () => {
         <Grid spacing={10} container className='h-full w-full flex justify-center items-center'>
             <Grid item xs={4} >
                 <Stack spacing={3} textAlign="center" className='flex justify-center items-center'>
-                    <h1>Welcome to "App Name"!</h1>
+                    <h2>Welcome to "App Name"!</h2>
                     <button className='btn btn-neutral w-10/12'>Sign up with Google</button>
                     <Grid container className='flex justify-center items-center'>
                         <Grid item xs={4.5}>
@@ -25,14 +25,14 @@ const page = () => {
                     </Grid>
                     <button className='btn w-10/12'>Continue with email</button>
                 
-                    <h1>By creating an account you agree with our Term of Service, Privacy, Policy, and our default notification</h1>
+                    <p>By creating an account you agree with our Term of Service, Privacy, Policy, and our default notification</p>
  
-                    <h1>Already have an account? Sign In</h1>
+                    <p>Already have an account? Sign In</p>
                 </Stack>
             </Grid>
 
             <Grid item xs={6}>
-                <Image src="https://placehold.co/1000x1000.svg" alt="" width={1000} height={1000}></Image>
+                <img src="https://placehold.co/1000x800.svg" className='w-full h-full' alt=""></img>
             </Grid>
         </Grid>
     </div>
