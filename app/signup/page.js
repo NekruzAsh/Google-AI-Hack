@@ -5,12 +5,12 @@ import Image from 'next/image'
 
 const page = () => {
   return (
-    <div className='h-screen w-screen'>
-        <Navbar/>
-        <Grid spacing={10} container className='h-full w-full flex justify-center items-center'>
+    <div className='h-screen w-screen grid-cols-2 gap-4 col-span-2'>
+        
+        <Grid spacing={10} container className='h-screen w-screen flex justify-center items-center overflow-auto'>
             <Grid item xs={4} >
                 <Stack spacing={2}>
-                    <h1>Sign up to "App Name"</h1>
+                    <h2>Sign up to "App Name"</h2>
                     <p>First Name</p>
                     <label className="input input-bordered flex items-center gap-2">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="w-4 h-4 opacity-70"><path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z" /></svg>
@@ -40,7 +40,7 @@ const page = () => {
                             <input type='checkbox' className='checkbox'></input>
                         </Grid>
                         <Grid item xs={10}>
-                            <h1>By creating an account you agree with our Terms of Service, Privacy Policy, and our default Notification</h1>
+                            <p>By creating an account you agree with our Terms of Service, Privacy Policy, and our default Notification</p>
                         </Grid>
                     </Grid>
 
@@ -49,7 +49,7 @@ const page = () => {
                             <input type='checkbox' className='checkbox'></input>
                         </Grid>
                         <Grid item xs={10}>
-                            <h1>I'm at least 18 years old.</h1>
+                            <p>I'm at least 18 years old.</p>
                         </Grid>
                     </Grid>
 
@@ -60,7 +60,7 @@ const page = () => {
             </Grid>
 
             <Grid item xs={6}>
-                <Image src="https://placehold.co/1000x1000.svg" alt="" width={1000} height={1000}></Image>
+                <img src="https://placehold.co/1000x1000.svg" alt="iamge" className='h-80 w-80'></img>
             </Grid>
         </Grid>
     </div>

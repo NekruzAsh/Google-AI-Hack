@@ -8,8 +8,8 @@ const page = () => {
     <div className='h-screen w-screen flex justify-center items-center'>
         
         <Stack spacing={3}>
-            <h1>Welcome! Let's create your profile</h1>
-            <p1>Let others get to know you better</p1>
+            <p>Welcome! Let's create your profile</p>
+            <p>Let others get to know you better</p>
 
             <Grid container>
                 <Grid item >
