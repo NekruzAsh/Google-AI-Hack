@@ -51,6 +51,7 @@ const page = () => {
                         </Grid>
                         <Grid item xs={10}>
                             <p>By creating an account you agree with our Terms of Service, Privacy Policy, and our default Notification</p>
+                            <p>By creating an account you agree with our Terms of Service, Privacy Policy, and our default Notification</p>
                         </Grid>
                     </Grid>
 
@@ -59,6 +60,7 @@ const page = () => {
                             <input type='checkbox' className='checkbox'></input>
                         </Grid>
                         <Grid item xs={10}>
+                            <p>I'm at least 18 years old.</p>
                             <p>I'm at least 18 years old.</p>
                         </Grid>
                     </Grid>
