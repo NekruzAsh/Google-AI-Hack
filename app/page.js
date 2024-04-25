@@ -1,5 +1,5 @@
 import React from 'react'
-import Navbar from '../Components/navbar'
+import Navbar from './Components/navbar'
 import { Grid, Stack } from '@mui/material'
 
 const page = () => {
