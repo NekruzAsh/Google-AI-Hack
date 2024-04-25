@@ -35,6 +35,15 @@ const page = () => {
                         <input type="password" className="grow" placeholder='6+ characters' />
                     </label>
 
+                    <Grid container className='flex justify-between'>
+                        <Grid item xs={5.5}>
+                            <button className='btn w-full'>Volunteer</button>
+                        </Grid>
+                        <Grid item xs={5.5}>
+                            <button className='btn w-full'>Senior</button>
+                        </Grid>
+                    </Grid>
+
                     <Grid container>
                         <Grid item xs={1}> 
                             <input type='checkbox' className='checkbox'></input>
