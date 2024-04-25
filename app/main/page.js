@@ -11,7 +11,7 @@ const AboutUs = () => {
         <Grid item xs={6} container className='flex justify-end'>
           <div className=' w-6/12 h-100'>
             <Stack spacing={2.5} className='flex '>
-                <h1> Make new friends and share you stories!</h1>
+                <p> Make new friends and share you stories!</p>
                 <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
                 </p>
