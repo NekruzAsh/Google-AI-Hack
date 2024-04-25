@@ -35,6 +35,7 @@ const page = () => {
                         <input type="password" className="grow" placeholder='6+ characters' />
                     </label>
 
+                    <h4>Are you a volunteer or senior?</h4>
                     <Grid container className='flex justify-between'>
                         <Grid item xs={5.5}>
                             <button className='btn w-full'>Volunteer</button>
