@@ -2,25 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
-html {
-  scroll-behavior: smooth;
-}
-
-
 @layer base {
-  
 
   body {
-    @apply bg-[#050817] text-[#f0f8ff] tracking-wide
+    @apply bg-[#ffffff] text-[#000000] tracking-wide
   }
 
-  
+
   h2,
   h3,
   h4,
   h5,
   h6 {
-    @apply font-semibold
+    @apply font-bold
   }
 
   h1 {
@@ -28,7 +22,7 @@ html {
   }
 
   h2{
-    @apply text-3xl sm:text-3xl
+    @apply text-3xl sm:text-4xl
 
 
   }

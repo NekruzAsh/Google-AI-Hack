@@ -5,12 +5,12 @@ import Image from 'next/image'
 
 const page = () => {
   return (
-    <div className='h-screen w-screen grid-cols-2 gap-4 col-span-2'>
-        
-        <Grid spacing={10} container className='h-screen w-screen flex justify-center items-center overflow-auto'>
+    <div className='h-screen w-screen margin-auto'>
+        <Navbar/>
+        <Grid spacing={10} container className='h-screen w-full flex justify-center items-center'>
             <Grid item xs={4} >
                 <Stack spacing={2}>
-                    <h2>Sign up to "App Name"</h2>
+                    <h3>Sign up to "App Name"</h3>
                     <p>First Name</p>
                     <label className="input input-bordered flex items-center gap-2">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="w-4 h-4 opacity-70"><path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z" /></svg>
@@ -35,11 +35,22 @@ const page = () => {
                         <input type="password" className="grow" placeholder='6+ characters' />
                     </label>
 
+                    <h4>Are you a volunteer or senior?</h4>
+                    <Grid container className='flex justify-between'>
+                        <Grid item xs={5.5}>
+                            <button className='btn w-full'>Volunteer</button>
+                        </Grid>
+                        <Grid item xs={5.5}>
+                            <button className='btn w-full'>Senior</button>
+                        </Grid>
+                    </Grid>
+
                     <Grid container>
                         <Grid item xs={1}> 
                             <input type='checkbox' className='checkbox'></input>
                         </Grid>
                         <Grid item xs={10}>
+                            <p>By creating an account you agree with our Terms of Service, Privacy Policy, and our default Notification</p>
                             <p>By creating an account you agree with our Terms of Service, Privacy Policy, and our default Notification</p>
                         </Grid>
                     </Grid>
@@ -49,6 +60,7 @@ const page = () => {
                             <input type='checkbox' className='checkbox'></input>
                         </Grid>
                         <Grid item xs={10}>
+                            <p>I'm at least 18 years old.</p>
                             <p>I'm at least 18 years old.</p>
                         </Grid>
                     </Grid>
@@ -60,7 +72,7 @@ const page = () => {
             </Grid>
 
             <Grid item xs={6}>
-                <img src="https://placehold.co/1000x1000.svg" alt="iamge" className='h-80 w-80'></img>
+                <img src="https://placehold.co/1000x800.svg" alt="" className='h-full w-full'></img>
             </Grid>
         </Grid>
     </div>

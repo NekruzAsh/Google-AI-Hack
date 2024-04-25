@@ -12,6 +12,7 @@
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
     "@mui/icons-material": "^5.15.15",
+    "@mui/joy": "^5.0.0-beta.36",
     "@mui/material": "^5.15.15",
     "@mui/styled-engine-sc": "^6.0.0-alpha.18",
     "next": "^14.1.4",
@@ -23,6 +24,7 @@
     "autoprefixer": "^10.0.1",
     "daisyui": "^4.10.2",
     "postcss": "^8",
-    "tailwindcss": "^3.3.0"
+    "postcss-apply": "^0.12.0",
+    "tailwindcss": "^3.4.3"
   }
 }

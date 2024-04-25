@@ -7,9 +7,9 @@ const page = () => {
   return (
     <div className='h-screen w-screen flex justify-center items-center'>
         
-        <Stack spacing={3}>
-            <p>Welcome! Let's create your profile</p>
-            <p>Let others get to know you better</p>
+        <Stack spacing={3} >
+            <h1>Welcome! Let's create your profile</h1>
+            <p1>Let others get to know you better</p1>
 
             <Grid container>
                 <Grid item >
@@ -27,8 +27,8 @@ const page = () => {
                     </button>
                 </Grid>
 
-                <Grid item>
-                    <button className='btn text-center'>Choose Image</button>
+                <Grid item className='flex justify-center items-center'>
+                    <input type="file" className="file-input file-input-bordered w-full max-w-xs" />
                 </Grid>
             </Grid>
 
@@ -42,14 +42,17 @@ const page = () => {
                 </Grid>
             </Grid>
 
-            
-            <Grid container>
-                <Grid item>
-                    <button className='btn'>back</button>
+            <input type="text" placeholder="Enter your ZipCode" className="px-2 py-2 w-full border-b-2 focus:border-[#333] outline-none text-sm bg-white" />
+            <Grid spacing={2} container>
+                <Grid item xs={9}>
+                    <p>2/4 steps</p>
+                </Grid>
+                <Grid item xs={1.5}>
+                    <button className='btn'>Back</button>
                 </Grid>
 
-                <Grid item>
-
+                <Grid item xs={1.5}>
+                    <button className='btn btn-neutral'>Continue</button>
                 </Grid>
             </Grid>
         </Stack>
