@@ -7,7 +7,7 @@ const page = () => {
 
   const interestsList =
   [
-    "Baking", "Movies", "Walking", "Gardening", "Arts and Crafts", "Reading", "Music", "Boarding Games and Puzzles", "Photography"
+    "Baking", "Movies", "Walking", "Gardening", "Arts and Crafts", "Reading", "Music", "Board Games", "Photography", "Puzzles", "Hiking", "Traveling"
   ]
     
     {/* havent tested this feature, dont know if it works */}
@@ -65,22 +65,6 @@ const page = () => {
                     <Grid item xs={8}>
                         {interestsButtonCreate()}
                     </Grid>
-                </Grid>
-            </Grid>
-
-            <h4>5. Upload your photos</h4>
-
-            <Grid container >
-                <Grid item xs={6}> 
-                    <button className='btn'>Gallery</button>
-                    <button className='btn'>Gallery</button>
-                    <button className='btn'>Gallery</button>
-                    <button className='btn'>Gallery</button>
-                    <button className='btn'>Gallery</button>
-                </Grid>
-
-                <Grid container xs={3.65} item id="button-box" className='w-6/12 justify-items-center justify-center items-center'>
-                    <button className='btn ' >Choose Image</button>
                 </Grid>
             </Grid>
 
