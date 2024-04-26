@@ -1,9 +1,18 @@
 import React from 'react'
 import Navbar from '../Components/navbar'
 import { Grid, Stack } from '@mui/material'
-import Image from 'next/image'
+import { supabase } from '../api/api'
 
 const page = () => {
+
+    const signUp = async () => {
+        const {data, error} = await supabase.auth.signUp(
+            {
+
+            }
+        )
+    }
+
   return (
     <div className='h-screen w-screen margin-auto'>
         <Navbar/>
