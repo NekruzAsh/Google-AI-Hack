@@ -1,29 +1,10 @@
 'use client'
-
-import { useState } from 'react';
 import { Grid, Stack, Card, CardContent } from "@mui/material";
 import React, { useState } from "react";
 import HelpIcon from "@mui/icons-material/Help";
-import { Textarea } from "@mui/joy";
 import nlp from 'compromise';
   
-const [selectedInterest, setSelectedInterests] = useState({});
 
-const handleButtonClick = (interest) =>
-    {
-        setSelectedInterests(prevState => ({
-            ...prevState,
-            [interest] : !prevState[interest]
-        }))
-    }
-const interestsButtonCreate = () =>
-      interestsList.map(e => (
-          <button key={e} 
-          className={`btn btn-xs ${selectedInterest[e] ? 'btn-selected' : ''}`}
-          onClick={() => handleButtonClick(e)}
-          >{e}</button>
-        )
-  )
 const {
   GoogleGenerativeAI,
   HarmCategory,
@@ -102,7 +83,42 @@ const page = () => {
 
   const [userInput, setUserInput] = useState('');
   const [aiResponse, setAiResponse] = useState('');
+ 
   
+const listenAboutMe = (event) =>
+{
+    setAboutMe(event.target.value);
+}
+
+const addDataToDB = async () =>
+{
+    const {error} = await supabase
+     .from('users')
+     .update({
+        user_metadata : {
+            aboutMe : aboutMe,
+            
+        }
+    }).eq('id', supabase.auth.getUser().id)
+}
+const [selectedInterest, setSelectedInterests] = useState({});
+
+const handleInterestButtonClick = (interest) =>
+    {
+        setSelectedInterests(prevState => ({
+            ...prevState,
+            [interest] : !prevState[interest]
+        }))
+    }
+
+    const interestsButtonCreate = () =>
+        interestsList.map(e => (
+            <button key={e} 
+            className={`btn btn-xs ${selectedInterest[e] ? 'btn-selected' : ''}`}
+            onClick={() => handleInterestButtonClick(e)}
+            >{e}</button>
+        )
+  )
 
   const interestsList = [
     "Baking",
@@ -118,13 +134,6 @@ const page = () => {
     "Hiking",
     "Traveling",
   ];
-
-  const interestsButtonCreate = () =>
-    interestsList.map((e) => (
-      <button key={e} className="btn btn-xs ">
-        {e}
-      </button>
-    ));
 
   const handleInputChange = (event) => {
     setUserInput(event.target.value);
@@ -173,7 +182,7 @@ const page = () => {
           <Grid item xs={6}>
 
             <textarea
-              className="textarea text-white textarea-bordered w-10/12 h-24"
+              className="textarea text-black textarea-bordered w-10/12 h-24"
               placeholder="Bio"
               value={userInput}
               onChange={handleInputChange}
