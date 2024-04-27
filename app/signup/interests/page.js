@@ -1,10 +1,29 @@
-"use client";
+'use client'
+
+import { useState } from 'react';
 import { Grid, Stack, Card, CardContent } from "@mui/material";
 import React, { useState } from "react";
 import HelpIcon from "@mui/icons-material/Help";
 import { Textarea } from "@mui/joy";
 import nlp from 'compromise';
+  
+const [selectedInterest, setSelectedInterests] = useState({});
 
+const handleButtonClick = (interest) =>
+    {
+        setSelectedInterests(prevState => ({
+            ...prevState,
+            [interest] : !prevState[interest]
+        }))
+    }
+const interestsButtonCreate = () =>
+      interestsList.map(e => (
+          <button key={e} 
+          className={`btn btn-xs ${selectedInterest[e] ? 'btn-selected' : ''}`}
+          onClick={() => handleButtonClick(e)}
+          >{e}</button>
+        )
+  )
 const {
   GoogleGenerativeAI,
   HarmCategory,
@@ -132,6 +151,7 @@ const page = () => {
             </Grid>
             <Grid item>
               <HelpIcon color="disabled"></HelpIcon>
+
             </Grid>
           </Grid>
 
