@@ -51,7 +51,6 @@ const page = () => {
             <Grid container item id="third-row" >
                 <Grid item xs={6}>
                     <Textarea
-        
                         color="neutral"
                         minRows={4}
                         placeholder="Talk a little about yourself. What do you want others to know about yourself?"
