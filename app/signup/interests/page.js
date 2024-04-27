@@ -1,138 +1,228 @@
 'use client'
-import { Grid, Stack } from '@mui/material'
-import React from 'react'
-import HelpIcon from '@mui/icons-material/Help';
-import { Textarea } from '@mui/joy';
-import { useState } from 'react';
-import supabase from '@/app/api/api';
+import { Grid, Stack, Card, CardContent } from "@mui/material";
+import React, { useState } from "react";
+import HelpIcon from "@mui/icons-material/Help";
+import nlp from 'compromise';
+  
+
+const {
+  GoogleGenerativeAI,
+  HarmCategory,
+  HarmBlockThreshold,
+} = require("@google/generative-ai");
+
+const MODEL_NAME = "gemini-pro";
+const API_KEY = "AIzaSyAqG3b_elDfKMC6n8o_MJFEPyzo9aNkA7s";
+
+
+async function runChat(userInput, setAiResponse) {
+  const genAI = new GoogleGenerativeAI(API_KEY);
+  const model = genAI.getGenerativeModel({ model: MODEL_NAME });
+
+
+  const interestsList = [
+    "Baking",
+    "Cook",
+    "Hanging out",
+    "Movies",
+    "Walking",
+    "Gardening",
+    "Arts and Crafts",
+    "Reading",
+    "Music",
+    "Board Games",
+    "Photography",
+    "Puzzles",
+    "Hiking",
+    "Traveling",
+  ];
+
+  const generationConfig = {
+    temperature: 1,
+    topK: 0,
+    topP: 0.95,
+    maxOutputTokens: 8192,
+  };
+
+  const safetySettings = [
+    {
+      category: HarmCategory.HARM_CATEGORY_HARASSMENT,
+      threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+    },
+    {
+      category: HarmCategory.HARM_CATEGORY_HATE_SPEECH,
+      threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+    },
+    {
+      category: HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT,
+      threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+    },
+    {
+      category: HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,
+      threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+    },
+  ];
+
+  const chat = model.startChat({
+    generationConfig,
+    safetySettings,
+    history: [],
+  });
+
+  const result = await chat.sendMessage(userInput);
+
+
+  const doc = nlp(userInput);
+  const keywords = interestsList.filter(interest => doc.match(interest).found);
+
+  const response = `Using this text "${userInput}", I found these keywords that the person might like: ${keywords.join(', ')}`;
+  setAiResponse(response);
+}
 
 const page = () => {
 
-    const [selectedInterest, setSelectedInterests] = useState({});
-    const [aboutMe, setAboutMe] = useState("");
+  const [userInput, setUserInput] = useState('');
+  const [aiResponse, setAiResponse] = useState('');
+ 
+  
+const listenAboutMe = (event) =>
+{
+    setAboutMe(event.target.value);
+}
 
-    const listenAboutMe = (event) =>
-    {
-        setAboutMe(event.target.value);
-    }
+const addDataToDB = async () =>
+{
+    const {error} = await supabase
+     .from('users')
+     .update({
+        user_metadata : {
+            aboutMe : aboutMe,
+            
+        }
+    }).eq('id', supabase.auth.getUser().id)
+}
+const [selectedInterest, setSelectedInterests] = useState({});
 
-    const addDataToDB = async () =>
-    {
-        const {error} = await supabase
-         .from('users')
-         .update({
-            user_metadata : {
-                aboutMe : aboutMe,
-                
-            }
-        }).eq('id', supabase.auth.getUser().id)
-    }
-
-    const handleButtonClick = (interest) =>
+const handleInterestButtonClick = (interest) =>
     {
         setSelectedInterests(prevState => ({
             ...prevState,
             [interest] : !prevState[interest]
         }))
     }
-    const interestsList =
-    [
-        "Baking", "Movies", "Walking", "Gardening", "Arts and Crafts", "Reading", "Music", "Boarding Games and Puzzles", "Photography"
-    ]
 
     const interestsButtonCreate = () =>
         interestsList.map(e => (
             <button key={e} 
             className={`btn btn-xs ${selectedInterest[e] ? 'btn-selected' : ''}`}
-            onClick={() => handleButtonClick(e)}
+            onClick={() => handleInterestButtonClick(e)}
             >{e}</button>
         )
-    )
+  )
+
+  const interestsList = [
+    "Baking",
+    "Movies",
+    "Walking",
+    "Gardening",
+    "Arts and Crafts",
+    "Reading",
+    "Music",
+    "Board Games",
+    "Photography",
+    "Puzzles",
+    "Hiking",
+    "Traveling",
+  ];
+
+  const handleInputChange = (event) => {
+    setUserInput(event.target.value);
+  }
+
+  const handleButtonClick = () => {
+    runChat(userInput, setAiResponse);
+  }
 
   return (
-    <div className='h-screen w-screen flex justify-items-center justify-center items-center'>
-        <Stack spacing={5}>
-            <div>
-                <h2>Almost done</h2>
-            </div>
-            <div>
-                <p>Final steps to complete your account</p>
-            </div>
+    <div className="h-screen w-screen flex justify-items-center justify-center items-center">
+      <Stack spacing={5}>
+        <div>
+          <h2>Almost done</h2>
+        </div>
+        <div>
+          <p>Final steps to complete your account</p>
+        </div>
 
-            <Grid container item id="second-row">   
-                <Grid container item xs={6}>
-                    <Grid item>                        
-                        <h4>3. About Me</h4>
-                    </Grid>
-                    <Grid item>
-                        <HelpIcon color='disabled'></HelpIcon>
-                    </Grid>
-                </Grid>
-
-                <Grid container item xs={6}  className='w-6/12 justify-center content-center'>
-                    <Grid item>                       
-                        <h4>4. Select 3 to 6 hobbies and interests</h4>
-                    </Grid>
-                    <Grid item>
-                        <HelpIcon color='disabled'></HelpIcon>
-                    </Grid>
-                </Grid>
-
-            </Grid>                
-
-            <Grid container item id="third-row" >
-                <Grid item xs={6}>
-                    <Textarea
-                        onChange={listenAboutMe}
-                        value={aboutMe}
-                        color="neutral"
-                        minRows={4}
-                        placeholder="Talk a little about yourself. What do you want others to know about yourself?"
-                        size="sm"
-                        variant="outlined"
-                        style= {{width : "70%"}}
-                        />
-                </Grid> 
-
-                <Grid container item xs={6} id="interest-box" className='w-6/12 justify-center content-center'>
-                    <Grid item xs={8}>
-                        {interestsButtonCreate()}
-                    </Grid>
-                </Grid>
+        <Grid container item id="second-row">
+          <Grid container item xs={6}>
+            <Grid item>
+              <h4>3. About Me</h4>
             </Grid>
+            <Grid item>
+              <HelpIcon color="disabled"></HelpIcon>
 
-            <h4>5. Upload your photos</h4>
-
-            <Grid container >
-                <Grid item xs={6}> 
-                    <button className='btn'>Gallery</button>
-                    <button className='btn'>Gallery</button>
-                    <button className='btn'>Gallery</button>
-                    <button className='btn'>Gallery</button>
-                    <button className='btn'>Gallery</button>
-                </Grid>
-
-                <Grid container xs={3.65} item id="button-box" className='w-6/12 justify-items-center justify-center items-center'>
-                    <button className='btn ' >Choose Image</button>
-                </Grid>
             </Grid>
+          </Grid>
 
-            <Grid container className=''>
-                <Grid item xs={7}>
-                    <p>3/4 steps</p>
-                </Grid>
-
-                <Grid item xs={1}>
-                    <button className='btn'>Back</button>
-                </Grid>
-
-                <Grid item xs ={1}>
-                    <button className='btn btn-neutral'>Continue</button>
-                </Grid>
+          <Grid
+            container
+            item
+            xs={6}
+            className="w-6/12 justify-center content-center"
+          >
+            <Grid item>
+              <h4>4. Select 3 to 6 hobbies and interests</h4>
             </Grid>
-        </Stack>
+            <Grid item>
+              <HelpIcon color="disabled"></HelpIcon>
+            </Grid>
+          </Grid>
+        </Grid>
+        <Grid container item id="third-row">
+          <Grid item xs={6}>
+
+            <textarea
+              className="textarea text-black textarea-bordered w-10/12 h-24"
+              placeholder="Bio"
+              value={userInput}
+              onChange={handleInputChange}
+            ></textarea>
+            <Card>
+              <CardContent>
+                {aiResponse}
+              </CardContent>
+            </Card>
+          </Grid>
+
+          <Grid
+            container
+            item
+            xs={6}
+            id="interest-box"
+            className="w-6/12 justify-center content-center"
+          >
+            <Grid item xs={8}>
+              {interestsButtonCreate()}
+            </Grid>
+          </Grid>
+        </Grid>
+
+        <Grid container className="">
+          <Grid item xs={7}>
+            <p>3/4 steps</p>
+          </Grid>
+
+          <Grid item xs={1}>
+            <button className="btn">Back</button>
+          </Grid>
+
+          <Grid item xs={1}>
+            <button className="btn" onClick={handleButtonClick}>Run AI</button>
+          </Grid>
+        </Grid>
+      </Stack>
     </div>
-  )
-}
+  );
+};
 
-export default page
+export default page;
