@@ -4,10 +4,29 @@ import React from 'react'
 import HelpIcon from '@mui/icons-material/Help';
 import { Textarea } from '@mui/joy';
 import { useState } from 'react';
+import supabase from '@/app/api/api';
 
 const page = () => {
 
     const [selectedInterest, setSelectedInterests] = useState({});
+    const [aboutMe, setAboutMe] = useState("");
+
+    const listenAboutMe = (event) =>
+    {
+        setAboutMe(event.target.value);
+    }
+
+    const addDataToDB = async () =>
+    {
+        const {error} = await supabase
+         .from('users')
+         .update({
+            user_metadata : {
+                aboutMe : aboutMe,
+                
+            }
+        }).eq('id', supabase.auth.getUser().id)
+    }
 
     const handleButtonClick = (interest) =>
     {
@@ -18,7 +37,7 @@ const page = () => {
     }
     const interestsList =
     [
-    "Baking", "Movies", "Walking", "Gardening", "Arts and Crafts", "Reading", "Music", "Boarding Games and Puzzles", "Photography"
+        "Baking", "Movies", "Walking", "Gardening", "Arts and Crafts", "Reading", "Music", "Boarding Games and Puzzles", "Photography"
     ]
 
     const interestsButtonCreate = () =>
@@ -64,6 +83,8 @@ const page = () => {
             <Grid container item id="third-row" >
                 <Grid item xs={6}>
                     <Textarea
+                        onChange={listenAboutMe}
+                        value={aboutMe}
                         color="neutral"
                         minRows={4}
                         placeholder="Talk a little about yourself. What do you want others to know about yourself?"
