@@ -40,3 +40,8 @@
   background-color: #007bff;
   color: white;
 }
+
+
+.checkbox-bordered {
+  border: 2px solid red;
+}
