@@ -1,19 +1,32 @@
+'use client'
 import { Grid, Stack } from '@mui/material'
 import React from 'react'
 import HelpIcon from '@mui/icons-material/Help';
 import { Textarea } from '@mui/joy';
+import { useState } from 'react';
 
 const page = () => {
 
-  const interestsList =
-  [
+    const [selectedInterest, setSelectedInterests] = useState({});
+
+    const handleButtonClick = (interest) =>
+    {
+        setSelectedInterests(prevState => ({
+            ...prevState,
+            [interest] : !prevState[interest]
+        }))
+    }
+    const interestsList =
+    [
     "Baking", "Movies", "Walking", "Gardening", "Arts and Crafts", "Reading", "Music", "Boarding Games and Puzzles", "Photography"
-  ]
-    
-    {/* havent tested this feature, dont know if it works */}
-  const interestsButtonCreate = () =>
+    ]
+
+    const interestsButtonCreate = () =>
         interestsList.map(e => (
-            <button key={e} className='btn btn-xs '>{e}</button>
+            <button key={e} 
+            className={`btn btn-xs ${selectedInterest[e] ? 'btn-selected' : ''}`}
+            onClick={() => handleButtonClick(e)}
+            >{e}</button>
         )
     )
 

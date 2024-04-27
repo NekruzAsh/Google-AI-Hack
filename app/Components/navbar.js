@@ -17,7 +17,6 @@ const Navbar = () => {
 
     const handleHomePage = () =>
     {
-        alert("LOGO clicked")
         router.push('/')
     }
     return (

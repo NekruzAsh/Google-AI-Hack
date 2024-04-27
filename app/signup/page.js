@@ -11,11 +11,8 @@ const page = () => {
     const [lastName, setLastName] = useState("");
     const [email , setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [volunteer, setVolunteer] = useState(false);
-    const [senior, setSenior] = useState(false);
-
     const router = useRouter();
-
+    const [participants, setParticipants] = useState({});
 
     const turnIntoSignInPage = () =>
     {
@@ -42,25 +39,22 @@ const page = () => {
 
     const handleVolunteerButton = (e) =>
     {   
-        setVolunteer(!volunteer)
+        setParticipants(prevState => ({
+            ...prevState,
+            [e.target.innerHTML] : !prevState[e.target.innerHTML],
+            "Senior": false,
+        }))
     }
     
     const handleSeniorButton = (e) =>
     {
-        setSenior(!senior);
+        setParticipants(prevState => ({
+            ...prevState,
+            [e.target.innerHTML] : !prevState[e.target.innerHTML],
+            "Volunteer" : false,
+        }))
+        
     }
-
-    const handleLogOut = async () => {
-        try {
-            const {data, user, error} = await supabase.auth.refreshSession();
-                
-            console.log(data)
-        } catch (error) {
-            console.error('Error signing out:', error);
-        }
-    };
-
-
 
     const handleSignUp = async () => {
         try {
@@ -123,10 +117,10 @@ const page = () => {
                         <h4>Are you a volunteer or senior?</h4>
                         <Grid container className='flex justify-between'>
                             <Grid item xs={5.5}>
-                                <button onClick={handleVolunteerButton} className='btn w-full'>Volunteer</button>
+                                <button onClick={handleVolunteerButton} className={`btn btn-xs w-full ${participants["Volunteer"] ? 'btn-selected' : ''}`}>Volunteer</button>
                             </Grid>
                             <Grid item xs={5.5}>
-                                <button onClick={handleSeniorButton} className='btn w-full'>Senior</button>
+                                <button onClick={handleSeniorButton} className={`btn btn-xs w-full ${participants["Senior"] ? 'btn-selected' : ''}`}>Senior</button>
                             </Grid>
                         </Grid>
 
