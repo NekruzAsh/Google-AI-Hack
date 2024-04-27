@@ -26,10 +26,10 @@ const Page = () => {
                 email: "123456@gmail.com",
                 password: "123456",
             })
-            console.log("User successfully signed in", data)
+            alert("User successfully signed in", data)
 
         } catch (error) {
-            console.error('Error signing up:', error.message);
+            alert('Error signing up:', error.message);
         }
     }
     return (

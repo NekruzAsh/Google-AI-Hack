@@ -4,6 +4,7 @@ import Navbar from '../Components/navbar';
 import { Grid, Stack } from '@mui/material';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import supabase from '../api/api';
 
 const page = () => {
     const [email , setEmail] = useState("");
@@ -24,21 +25,26 @@ const page = () => {
     {
         setPassword(e.target.value);
     }
+
+    const isValidEmail = (email) => {
+        const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(String(email).toLowerCase());
+    }
+
     const handleSignIn = async () => {
         if(validateFields())
         {
+            console.log(email);
+            console.log(password)
             try {
-                const {error} = await supabase.auth.signInWithPassword({
+                const {data, error} = await supabase.auth.signInWithPassword({
                     email: email,
                     password: password,
                 })
-    
-                if(error)
-                {
-                    throw error;
-                }
+
+
                 alert("User successfully signed in")
-    
+
             } catch (error) {
                 alert('Error signing up:', error);
             }
@@ -47,14 +53,12 @@ const page = () => {
 
         
     const validateFields = () => {
-        let isValid = true;
         let warnings = {};
         warnings["email"] = (isValidEmail(email) && email) ? true : false;
-        warnings["password"] = password.length > 6 ? true : false;
+        warnings["password"] = password.length >= 6 ? true : false;
         setWarning(warnings);
-        isValid = Object.values(warnings).every(value => value === true);
         setFirstSignIn(false);
-        return isValid;
+        return (warnings["password"] && warnings["email"]);
     }
 
   return (

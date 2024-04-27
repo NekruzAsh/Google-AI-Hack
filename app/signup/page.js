@@ -36,7 +36,7 @@ const page = () => {
         warnings["firstName"] = isValidName(firstName)? true : false;
         warnings["lastName"] = isValidName(lastName) ? true : false;
         warnings["email"] = (isValidEmail(email) && email != undefined) ? true : false;
-        warnings["password"] = password.length > 6 ? true : false;
+        warnings["password"] = password.length >= 6 ? true : false;
         warnings["participant"] = (participants["Senior"] || participants["Volunteer"]) ? true : false;
         warnings["TOS"] = TOS ? true : false;
         warnings["age"] = age ? true : false;
@@ -152,7 +152,7 @@ const page = () => {
                         <label className="input input-bordered flex items-center gap-2">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="w-4 h-4 opacity-70"><path fillRule="evenodd" d="M14 6a4 4 0 0 1-4.899 3.899l-1.955 1.955a.5.5 0 0 1-.353.146H5v1.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-2.293a.5.5 0 0 1 .146-.353l3.955-3.955A4 4 0 1 1 14 6Zm-4-2a.75.75 0 0 0 0 1.5.5.5 0 0 1 .5.5.75.75 0 0 0 1.5 0 2 2 0 0 0-2-2Z" clipRule="evenodd" /></svg>
                             <input value={password} onChange={listenPassword} type="password" className="grow" placeholder='6+ characters' />
-                            {!warning["password"] && !firstSignIn ?  <p className="text-red-500 text-xs italic">It's either empty or too short.</p> : ""}                        
+                            {!warning["password"] && !firstSignup ?  <p className="text-red-500 text-xs italic">It's either empty or too short.</p> : ""}                        
                         </label>
 
                         <h4>Are you a volunteer or senior?</h4>
