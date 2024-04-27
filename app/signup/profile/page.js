@@ -1,17 +1,40 @@
 'use client'
 import { Grid, Stack } from '@mui/material'
-import React from 'react'
+import React, { useState } from 'react'
 import HelpIcon from '@mui/icons-material/Help';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import { useRouter } from 'next/navigation';
+import supabase from '@/app/api/api';
 const page = () => {
-    
+    const [zipCode,setZipCode] = useState("");
+
     const router = useRouter();
 
-    const handleNextPage = () =>
+    const handleNextPage = async () =>
     {
+        if(supabase.auth.getUser())
+        {
+            await supabase.auth.updateUser(
+                {
+                    data :
+                    {
+                        zipCode : zipCode
+                    }
+                }
+            )
+        }
         router.push('/signup/interests')
-    } 
+    }
+    
+    const handlePrevPage = () =>
+    {
+        router.push('/signup')
+    }
+
+    const listenZipCode = (e) =>
+    {
+        setZipCode(e.target.value)
+    }
     return (
         <div className='h-screen w-screen flex justify-center items-center'>
             
@@ -50,13 +73,13 @@ const page = () => {
                     </Grid>
                 </Grid>
 
-                <input type="text" placeholder="Enter your ZipCode" className="px-2 py-2 w-full border-b-2 focus:border-[#333] outline-none text-sm bg-white" />
+                <input type="text"  value={zipCode} onChange={listenZipCode} placeholder="Enter your ZipCode" className="px-2 py-2 w-full border-b-2 focus:border-[#333] outline-none text-sm bg-white" />
                 <Grid spacing={2} container>
                     <Grid item xs={9}>
                         <p>2/4 steps</p>
                     </Grid>
                     <Grid item xs={1.5}>
-                        <button className='btn'>Back</button>
+                        <button className='btn' onClick={handlePrevPage} >Back</button>
                     </Grid>
 
                     <Grid item xs={1.5}>

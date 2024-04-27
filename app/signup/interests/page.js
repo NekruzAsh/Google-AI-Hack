@@ -3,6 +3,7 @@ import { Grid, Stack, Card, CardContent } from "@mui/material";
 import React, { useState } from "react";
 import HelpIcon from "@mui/icons-material/Help";
 import nlp from 'compromise';
+import supabase from "@/app/api/api";
   
 
 const {
@@ -83,43 +84,47 @@ const page = () => {
 
   const [userInput, setUserInput] = useState('');
   const [aiResponse, setAiResponse] = useState('');
- 
-  
-const listenAboutMe = (event) =>
-{
-    setAboutMe(event.target.value);
-}
+  const [selectedInterest, setSelectedInterests] = useState({});
 
-const addDataToDB = async () =>
-{
-    const {error} = await supabase
-     .from('users')
-     .update({
-        user_metadata : {
-            aboutMe : aboutMe,
-            
-        }
-    }).eq('id', supabase.auth.getUser().id)
-}
-const [selectedInterest, setSelectedInterests] = useState({});
+  const handleInterestButtonClick = (interest) =>
+      {
+          setSelectedInterests(prevState => ({
+              ...prevState,
+              [interest] : !prevState[interest]
+          }))
+      }
 
-const handleInterestButtonClick = (interest) =>
+  const interestsButtonCreate = () =>
+      interestsList.map(e => (
+          <button key={e} 
+          className={`btn btn-xs ${selectedInterest[e] ? 'btn-selected' : ''}`}
+          onClick={() => handleInterestButtonClick(e)}
+          >{e}</button>
+      )
+    )
+
+  const addDataToDB = async () =>
+  {
+    if(supabase.auth.getUser())
     {
-        setSelectedInterests(prevState => ({
-            ...prevState,
-            [interest] : !prevState[interest]
-        }))
+      try{
+
+      const {error} = await supabase.auth.updateUser(
+        {
+          data : {
+            aboutMe : userInput,
+            interests : Object.keys(selectedInterest)
+          }
+        }
+      )
+
+    }catch (error)
+    {
+      console.log("update supabase error", error)
     }
+    } 
 
-    const interestsButtonCreate = () =>
-        interestsList.map(e => (
-            <button key={e} 
-            className={`btn btn-xs ${selectedInterest[e] ? 'btn-selected' : ''}`}
-            onClick={() => handleInterestButtonClick(e)}
-            >{e}</button>
-        )
-  )
-
+  }
   const interestsList = [
     "Baking",
     "Movies",
@@ -186,6 +191,7 @@ const handleInterestButtonClick = (interest) =>
               placeholder="Bio"
               value={userInput}
               onChange={handleInputChange}
+
             ></textarea>
             <Card>
               <CardContent>
@@ -218,6 +224,10 @@ const handleInterestButtonClick = (interest) =>
 
           <Grid item xs={1}>
             <button className="btn" onClick={handleButtonClick}>Run AI</button>
+          </Grid>
+
+          <Grid item xs ={1}>
+            <button onClick={addDataToDB} className='btn btn-neutral'>Continue</button>
           </Grid>
         </Grid>
       </Stack>
