@@ -34,8 +34,6 @@ const page = () => {
     const handleSignIn = async () => {
         if(validateFields())
         {
-            console.log(email);
-            console.log(password)
             try {
                 const {data, error} = await supabase.auth.signInWithPassword({
                     email: email,
@@ -86,7 +84,7 @@ const page = () => {
 
                 <button onClick={handleSignIn} className='btn btn-neutral w-full'>Log in</button>
 
-                <p className='text-center'>Don't have an account?<a onClick={handleBackToSignup}> Back to sign up</a></p>
+                <p className='text-center'>Don't have an account?<a onClick={handleBackToSignup}> Back to <u>sign up</u></a></p>
             </Stack>
         </Grid>
 
