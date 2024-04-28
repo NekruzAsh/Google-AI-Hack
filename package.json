@@ -31,6 +31,7 @@
     "socket.io": "^4.7.5",
     "socket.io-client": "^4.7.5",
     "styled-components": "^6.1.8",
+    "supabase": "^1.163.6",
     "uuid": "^9.0.1"
   },
   "devDependencies": {
