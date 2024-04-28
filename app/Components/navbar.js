@@ -24,13 +24,13 @@ const Navbar = () => {
         <div className='border border-solid border-b-gray flex h-16'>
            <Grid container  className='flex justify-center items-center'>
                 <Grid item xs = {7} lg={7} >
-                    <button onClick={handleHomePage} className="btn">LOGO</button>
+                    <button onClick={handleHomePage} className="btn bg-black text-white">LOGO</button>
                 </Grid>
                 <Grid onClick={handleSignin} item xs = {1.5} lg={0.75} textAlign="center">
-                    <button className='btn'>Log In</button>
+                    <button className='btn bg-black text-white'>Log In</button>
                 </Grid>
                 <Grid onClick={handleSignup} item xs = {1.5} lg={1.5} textAlign="left">
-                    <button className='btn btn-neutral'>Create an Account</button>
+                    <button className='btn bg-gray-500 text-white'>Create an Account</button>
                 </Grid>
       
             </Grid>
