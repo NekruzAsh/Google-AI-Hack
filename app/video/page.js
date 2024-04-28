@@ -21,42 +21,53 @@ const Page = () => {
     }, []);
     
 
-    let joinAndDisplayLocalStream = async () => {
+    const joinAndDisplayLocalStream = async () => {
 
         if(client)
         {
+            alert(client.connectionState)
+            if (client.connectionState === 'CONNECTED') {
+                await client.leave();
+            }
             client.on('user-published', handleUserJoined)
+            client.on('user-left', handleUserLeft)
 
-        let UID = await client.join("8f8841f090f64a6aaa64463c34fe0e8a", "main", "007eJxTYPgubXMhdlrJ+vsnebhuqG1a03ey72r+F3l3g1l7xTf8uMSgwGCRZmFhYphmYGmQZmaSaJaYmGhmYmJmnGxskpZqkGqRWDdfL60hkJGB7+8mVkYGCATxWRhyEzPzGBgAssggtA==+FsYa3XFcTXBM4eerF2JcKDBZpFhYmhmkGlgZpZiaJZomJiWYmJmbGycYmaakGqRaJObN00xoCGRnKoucxMEIhiM/CkJuYmcfAAAAzdh71", null);
-        const tracks = await AgoraRTC.createMicrophoneAndCameraTracks();
-        let playerContainer = document.createElement('div');
-        playerContainer.className = 'video-container';
-        playerContainer.id = `user-container-${UID}`;
+            let UID = await client.join("8f8841f090f64a6aaa64463c34fe0e8a", "main", "007eJxTYPgubXMhdlrJ+vsnebhuqG1a03ey72r+F3l3g1l7xTf8uMSgwGCRZmFhYphmYGmQZmaSaJaYmGhmYmJmnGxskpZqkGqRWDdfL60hkJGB7+8mVkYGCATxWRhyEzPzGBgAssggtA==+FsYa3XFcTXBM4eerF2JcKDBZpFhYmhmkGlgZpZiaJZomJiWYmJmbGycYmaakGqRaJObN00xoCGRnKoucxMEIhiM/CkJuYmcfAAAAzdh71", null);
+            const tracks = await AgoraRTC.createMicrophoneAndCameraTracks();
+            let playerContainer = document.getElementById(`user-container-${key}`);
+            if(playerContainer !== null) 
+            {
+                playerContainer.remove();
+            }
 
-        let player = document.createElement('div');
-        player.className = 'video-player';
-        player.id = `user-${UID}`;
+            playerContainer = document.createElement('div');
+            playerContainer.className = 'video-container';
+            playerContainer.id = `user-container-${UID}`;
 
-        playerContainer.appendChild(player);
+            let player = document.createElement('div');
+            player.className = 'video-player';
+            player.id = `user-${UID}`;
 
-        document.getElementById('video-streams').appendChild(playerContainer);
+            playerContainer.appendChild(player);
 
-        tracks[1].play(`user-${UID}`)
+            document.getElementById('video-streams').appendChild(playerContainer);
 
-        setLocalTracks(tracks);
-        
-        await client.publish([tracks[0], tracks[1]]);
+            tracks[1].play(`user-${UID}`)
+
+            setLocalTracks(tracks);
+
+            await client.publish([tracks[0], tracks[1]]);
         }
 
     }
 
-    let joinStream = async () => {
+    const joinStream = async () => {
         await joinAndDisplayLocalStream();
         joinBtnRef.current.style.display = 'none';
         streamControlsRef.current.style.display = 'flex';
     }
 
-    let handleUserJoined = async (user, mediaType) => {
+    const handleUserJoined = async (user, mediaType) => {
         if(client) {
             remoteUsers[user.uid] = user;
             await client.subscribe(user, mediaType);
@@ -86,17 +97,38 @@ const Page = () => {
         }
     }
 
+    const handleUserLeft = async (user) =>
+    {
+        delete remoteUsers[user.uid]
+        document.getElementById(`user-container-${user.uid}`).remove();
+    }
 
+    const leaveAndRemoveLocalStream = async () =>
+    {
+        if(client)
+        {
+            for(let i = 0; localTracks.length > i; i++)
+            {
+                localTracks[i].stop()
+                localTracks[i].close()
+            }
+            await client.leave()
+            
+            document.getElementById('join-btn').style.display = 'block'
+            document.getElementById('stream-controls').style.display = 'none'
+            document.getElementById('video-streams').innerHTML = ''
+        }
+
+    }
 
     return (
         <div>
             <button ref={joinBtnRef} id="join-btn" onClick={joinStream}>Join Stream</button>
             <div id="stream-wrapper">
                 <div id="video-streams">
-                    
                 </div>
                 <div id="stream-controls" ref={streamControlsRef}>
-                    <button className='btn' id="leave-btn">Leave Stream</button>
+                    <button className='btn' onClick={leaveAndRemoveLocalStream} id="leave-btn">Leave Stream</button>
                     <button className='btn' id="mic-btn">Mic On</button>
                     <button className='btn' id="camera-btn">Camera On</button>
                 </div>

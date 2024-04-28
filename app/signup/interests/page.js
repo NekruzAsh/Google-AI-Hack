@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import HelpIcon from "@mui/icons-material/Help";
 import nlp from 'compromise';
 import supabase from "@/app/api/api";
+import { useRouter } from "next/navigation";
   
 
 const {
@@ -85,6 +86,7 @@ const page = () => {
   const [userInput, setUserInput] = useState('');
   const [aiResponse, setAiResponse] = useState('');
   const [selectedInterest, setSelectedInterests] = useState({});
+  const router = useRouter();
 
   const handleInterestButtonClick = (interest) =>
       {
@@ -117,6 +119,7 @@ const page = () => {
             }
           }
         )
+      router.push('/main')
       }catch (error)
       {
       console.log("update supabase error", error)
@@ -147,6 +150,7 @@ const page = () => {
     runChat(userInput, setAiResponse);
   }
 
+
   return (
     <div className="h-screen w-screen flex justify-items-center justify-center items-center">
       <Stack spacing={5}>
@@ -172,8 +176,7 @@ const page = () => {
             container
             item
             xs={6}
-            className="w-6/12 justify-center content-center"
-          >
+            className="w-6/12 justify-center content-center">
             <Grid item>
               <h4>4. Select 3 to 6 hobbies and interests</h4>
             </Grid>
