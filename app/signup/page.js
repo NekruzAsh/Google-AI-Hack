@@ -181,7 +181,7 @@ const page = () => {
 
                         <button onClick={handleSignUp} className='btn btn-neutral w-full'>Create Account</button>
 
-                        <p className='text-center'>Already have an account? <a onClick={turnIntoSignInPage}>Sign In</a></p>
+                        <p className='text-center'>Already have an account? <u onClick={turnIntoSignInPage}>Sign In</u></p>
                     </Stack>
                 </Grid>
 
