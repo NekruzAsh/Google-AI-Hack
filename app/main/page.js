@@ -1,32 +1,58 @@
-import React from 'react'
-import Navbar from '../Components/navbar'
-import { Grid, Stack } from '@mui/material'
-import Image from 'next/image'
+import React from "react";
+import Navbar from "../Components/navbar";
+import Image from "next/image";
+import { Grid } from "@mui/material";
 
 const AboutUs = () => {
   return (
-    <div style={{width:"100vw", height:"100vh", }}>
-      <Navbar></Navbar>
-      <Grid container spacing={10} className='flex mt-60 justify-center w-full h-full'>
-        <Grid item xs={6} container className='flex justify-end'>
-          <div className=' w-6/12 h-100'>
-            <Stack spacing={2.5} className='flex '>
-                <p> Make new friends and share you stories!</p>
-                <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                </p>
-                <button className='btn btn-neutral w-40 rounded-full'>Start Now</button>
-            </Stack>
+    <div className="h-screen w-full">
+      <div className="border border-solid border-b-gray p-2 flex">
+        <Grid container className="flex justify-center items-center">
+          <Grid item xs={7} lg={7}>
+            <p className=" btn">Logo</p>
+          </Grid>
+          <Grid item xs={1.5} lg={2} textAlign="right">
+            <p className="text-black">Find a Match</p>
+          </Grid>
+          <Grid item xs={1.5} lg={0.75} textAlign="center">
+            <p className="text-black">Message</p>
+          </Grid>
+          <Grid item xs={1.5} lg={1.5} textAlign="left">
+            <button className="btn btn-neutral">My Account</button>
+          </Grid>
+        </Grid>
+      </div>
+      <div className="flex justify-center items-center gap-2 mt-4">
+        <button className="btn shadow-lg bg-black text-white rounded-full h-1">
+          Compatible
+        </button>
+        <button className="btn shadow-lg rounded-full h-1 text-black hover:text-white bg-transparent">
+          Active Today
+        </button>
+        <button className="btn shadow-lg rounded-full h-1 text-black hover:text-white bg-transparent">
+          Nearby
+        </button>
+      </div>
+
+      <div className="flex justify-center items-center mt-4">
+        <div className="card w-96 glass">
+          <figure>
+            <img
+              src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
+              alt="car!"
+            />
+          </figure>
+          <div className="card-body">
+            <h2 className="card-title">Life hack</h2>
+            <p>How to park your car at your garage?</p>
+            <div className="card-actions justify-end">
+              <button className="btn btn-primary">Learn now!</button>
+            </div>
           </div>
-        </Grid>
-
-        <Grid item xs={6} className='flex justify-left self-start'>
-          <Image src="https://placehold.co/500x400.svg" alt="" width={500} height={400}></Image>
-        </Grid>
-      </Grid>
-        
+        </div>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default AboutUs
+export default AboutUs;

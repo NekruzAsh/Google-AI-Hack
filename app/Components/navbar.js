@@ -3,7 +3,7 @@ import React from 'react'
 
 const Navbar = () => {
   return (
-    <div className='border border-solid border-b-gray flex h-16'>
+    <div className='border border-solid border-b-gray p-2 flex'>
        <Grid container  className='flex justify-center items-center'>
             <Grid item xs = {7} lg={7} >
                 <button className="btn">LOGO</button>
