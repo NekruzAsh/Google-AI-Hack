@@ -1,9 +1,10 @@
-"use client";
+'use client'
 import { Grid, Stack, Card, CardContent } from "@mui/material";
 import React, { useState } from "react";
 import HelpIcon from "@mui/icons-material/Help";
-import { Textarea } from "@mui/joy";
 import nlp from 'compromise';
+import supabase from "@/app/api/api";
+  
 
 const {
   GoogleGenerativeAI,
@@ -83,8 +84,47 @@ const page = () => {
 
   const [userInput, setUserInput] = useState('');
   const [aiResponse, setAiResponse] = useState('');
-  
+  const [selectedInterest, setSelectedInterests] = useState({});
 
+  const handleInterestButtonClick = (interest) =>
+      {
+          setSelectedInterests(prevState => ({
+              ...prevState,
+              [interest] : !prevState[interest]
+          }))
+      }
+
+  const interestsButtonCreate = () =>
+      interestsList.map(e => (
+          <button key={e} 
+          className={`btn btn-xs ${selectedInterest[e] ? 'btn-selected' : ''}`}
+          onClick={() => handleInterestButtonClick(e)}
+          >{e}</button>
+      )
+    )
+
+  const addDataToDB = async () =>
+  {
+    if(supabase.auth.getUser())
+    {
+      try{
+
+      const {error} = await supabase.auth.updateUser(
+        {
+          data : {
+            aboutMe : userInput,
+            interests : Object.keys(selectedInterest)
+          }
+        }
+      )
+
+    }catch (error)
+    {
+      console.log("update supabase error", error)
+    }
+    } 
+
+  }
   const interestsList = [
     "Baking",
     "Movies",
@@ -99,13 +139,6 @@ const page = () => {
     "Hiking",
     "Traveling",
   ];
-
-  const interestsButtonCreate = () =>
-    interestsList.map((e) => (
-      <button key={e} className="btn btn-xs ">
-        {e}
-      </button>
-    ));
 
   const handleInputChange = (event) => {
     setUserInput(event.target.value);
@@ -132,6 +165,7 @@ const page = () => {
             </Grid>
             <Grid item>
               <HelpIcon color="disabled"></HelpIcon>
+
             </Grid>
           </Grid>
 
@@ -153,10 +187,11 @@ const page = () => {
           <Grid item xs={6}>
 
             <textarea
-              className="textarea text-white textarea-bordered w-10/12 h-24"
+              className="textarea text-black textarea-bordered w-10/12 h-24"
               placeholder="Bio"
               value={userInput}
               onChange={handleInputChange}
+
             ></textarea>
             <Card>
               <CardContent>
@@ -189,6 +224,10 @@ const page = () => {
 
           <Grid item xs={1}>
             <button className="btn" onClick={handleButtonClick}>Run AI</button>
+          </Grid>
+
+          <Grid item xs ={1}>
+            <button onClick={addDataToDB} className='btn btn-neutral'>Continue</button>
           </Grid>
         </Grid>
       </Stack>
