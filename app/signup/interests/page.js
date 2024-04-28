@@ -108,20 +108,19 @@ const page = () => {
     if(supabase.auth.getUser())
     {
       try{
-
-      const {error} = await supabase.auth.updateUser(
-        {
-          data : {
-            aboutMe : userInput,
-            interests : Object.keys(selectedInterest)
+        await supabase.auth.updateUser(
+          {
+            data : 
+            {
+              aboutMe : userInput,
+              interests : Object.keys(selectedInterest)
+            }
           }
-        }
-      )
-
-    }catch (error)
-    {
+        )
+      }catch (error)
+      {
       console.log("update supabase error", error)
-    }
+      }
     } 
 
   }
