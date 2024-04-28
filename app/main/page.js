@@ -6,8 +6,9 @@ import { Grid } from "@mui/material";
 const AboutUs = () => {
   return (
     <div className="h-screen w-full">
+      
       <div className="absolute flex justify-between transform -translate-y-1/2 left-96 right-96 top-1/2">
-      <a href="#slide4" className="btn btn-circle">❮</a> 
+      <a href="#slide1" className="btn btn-circle">❮</a> 
       <a href="#slide2" className="btn btn-circle">❯</a>
     </div>
       <div className="border border-solid border-b-gray p-2 flex">
@@ -37,9 +38,10 @@ const AboutUs = () => {
           Nearby
         </button>
       </div>
-
+      
       <div className="flex justify-center items-center">
-        <div className="card w-96 shadow-lg md:w-[500px] mt-20 glass">
+      <div className="carousel">
+        <div id="slide1" className="carousel-item card bg-slate-300 w-full mt-20 glass">
           <div className="avatar justify-start p-8">
             <div className="w-32 rounded-full">
               <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
@@ -77,7 +79,46 @@ const AboutUs = () => {
               <button className="btn btn-primary">Message</button>
             </div>
         </div>
+        <div id="slide2" className="card bg-slate-300 carousel-item w-full mt-20 glass">
+          <div className="avatar justify-start p-8">
+            <div className="w-32 rounded-full">
+              <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+            </div>
+            <div className="ml-6 justify-end">
+              <p className="text-black text-lg">John Doe</p>
+              <p>NY &#8226; Active</p>
+            </div>
+          </div>
+          <div className="card-body">
+            <h2 className="card-title">Hobbies & Interests</h2>
+           
+              <ul className="gap-2">
+                <li className="badge badge-primary badge-outline">Hiking</li>
+                <li className="badge badge-primary badge-outline ml-2">
+                  Programming
+                </li>
+                <li className="badge badge-primary badge-outline ml-2">
+                  Baking
+                </li>
+                <li className="badge badge-primary badge-outline ml-2">Cats</li>
+              </ul>
+          </div>
+          <div className="card-actions justify-end items-center p-6">
+            <p>
+              Compatibility Score:
+            </p>
+              <div
+                className="radial-progress bg-primary text-primary-content border-4 border-primary"
+                style={{ "--value": 70 }}
+                role="progressbar"
+              >
+                30%
+              </div>
+              <button className="btn btn-primary">Message</button>
+            </div>
+        </div>
       </div>
+    </div>
     </div>
   );
 };
