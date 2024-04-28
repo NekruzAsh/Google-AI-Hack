@@ -5,7 +5,6 @@ import { Grid, Stack } from '@mui/material'
 import supabase  from '../api/api'
 import { useRouter } from 'next/navigation';
 
-
 const page = () => {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
@@ -99,15 +98,11 @@ const page = () => {
                     {
                         first_name : firstName,
                         last_name : lastName,
-                        participant : participants["Volunteer"] ? "Volunteer" : "Senior"
+                        participant : participants["Volunteer"] ? "Volunteer" : "Senior",
+                        TOS : TOS,
+                        age : age
                     }
                 })
-
-                if(error)
-                {
-                    throw error;
-                }
-
                 console.log("User successfully signed up", data.user);
                 router.push('/signup/profile');
 
