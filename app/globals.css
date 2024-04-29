@@ -48,10 +48,10 @@
 
 #video-streams
 {
-  display: grid;
+  display: flex;
   height : 50vh;
   grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
-  width: 50vh;
+  width: 100vh;
   margin: 0 auto;
 }
 
@@ -65,19 +65,26 @@
   font-size: 18px;
   padding: 20px 40px;
 }
-
-.video-container{
-  height : 100%;
+.video-container {
+  height: 100%;
+  width: 100%;
   border: 2px solid black; 
   background-color: black;
+  display: flex;
+  flex-wrap: wrap; 
 }
 
-.video-player{
-  height : 100%;
-  width : 100%;
+.video-container > * {
+  margin-left: 10px; 
 }
 
-#stream-controls
+.video-player {
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
+
+m-controls
 {
   display: none;
 }

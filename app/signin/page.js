@@ -1,5 +1,5 @@
 'use client'
-import React from 'react'
+import React, { useEffect } from 'react'
 import Navbar from '../Components/navbar';
 import { Grid, Stack } from '@mui/material';
 import { useState } from 'react';
@@ -13,10 +13,24 @@ const page = () => {
     const [warning, setWarning] = useState({});
     const [firstSignIn, setFirstSignIn] = useState(true);
 
+    useEffect(() => 
+    {
+        const fetchData = async () => {
+            const {data, error} = await supabase.auth.getUser();
+            if(data.user)
+            {
+                router.push('/main')
+            }
+        }
+        fetchData();
+    })
+
+
     const handleBackToSignup = () =>
     {
         router.push('/signup')
     }
+
     const listenEmail = (e) =>
     {
         setEmail(e.target.value);
@@ -40,8 +54,7 @@ const page = () => {
                     password: password,
                 })
 
-
-                alert("User successfully signed in")
+                router.push('/main')
 
             } catch (error) {
                 alert('Error signing up:', error);
@@ -59,6 +72,8 @@ const page = () => {
         return (warnings["password"] && warnings["email"]);
     }
 
+    
+
   return (
     <div>
 
@@ -66,7 +81,7 @@ const page = () => {
     <Grid spacing={10} container className='h-screen w-full flex justify-center items-center'>
         <Grid item xs={4} >
             <Stack spacing={2}>
-                <h3>Sign In to "App Name"</h3>
+                <h3>Sign In to Friendli</h3>
                 
                 <p>Email</p>
                 <label className="input bg-white input-bordered flex items-center gap-2">
@@ -89,7 +104,7 @@ const page = () => {
         </Grid>
 
         <Grid item xs={6}>
-            <img src="https://placehold.co/1000x800.svg" alt="" className='h-full w-full'></img>
+            <img src="/image.png" className="w-12/12 h-12/12" alt=""></img>
         </Grid>
     </Grid>
 </div>
