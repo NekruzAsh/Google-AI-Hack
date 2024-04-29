@@ -28,13 +28,14 @@ const page = () => {
             {
                 setHobbies(data.user.user_metadata.interests);
                 setAboutMe(data.user.user_metadata.aboutMe);
+                console.log(data.user)
             }
         }
         fetchData();
     })
 
     return (
-    <div className="h-96 flex justify-center items-center">
+    <div className="h-screen flex justify-center items-center">
         <div className="card w-120 h-96 shadow-lg md:w-[500px] mt-20 glass">
           <div className="avatar justify-start p-8">
             <div className="w-32 rounded-full">
