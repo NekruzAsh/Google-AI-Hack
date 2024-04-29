@@ -89,7 +89,7 @@ const AboutUs = () => {
               >
                 70%
               </div>
-              <button className="btn btn-primary" onClick={goToVideo}>Message</button>
+              <button className="btn btn-primary" onClick={goToVideo}>Call</button>
             </div>
         </div>
         <div id="slide2" className="card bg-slate-300 carousel-item w-full mt-20 glass">
@@ -127,7 +127,7 @@ const AboutUs = () => {
               >
                 30%
               </div>
-              <button className="btn btn-primary" onClick={goToVideo}>Message</button>
+              <button className="btn btn-primary" onClick={goToVideo}>Call</button>
             </div>
         </div>
       </div>
