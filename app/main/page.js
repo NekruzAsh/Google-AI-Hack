@@ -1,9 +1,22 @@
+'use client'
 import React from "react";
 import Navbar from "../Components/navbar";
 import Image from "next/image";
 import { Grid } from "@mui/material";
+import { useRouter } from "next/navigation";
 
 const AboutUs = () => {
+  const router = useRouter();
+
+  const myAccountButton = () =>
+  {
+    router.push('/account')
+  }
+
+  const goToVideo = () =>
+  {
+    router.push('/video')
+  }
   return (
     <div className="h-screen w-full">
       
@@ -23,7 +36,7 @@ const AboutUs = () => {
             <p className="text-black">Message</p>
           </Grid>
           <Grid item xs={1.5} lg={1.5} textAlign="left">
-            <button className="btn btn-neutral">My Account</button>
+            <button onClick={myAccountButton} className="btn btn-neutral">My Account</button>
           </Grid>
         </Grid>
       </div>
@@ -76,7 +89,7 @@ const AboutUs = () => {
               >
                 70%
               </div>
-              <button className="btn btn-primary">Message</button>
+              <button className="btn btn-primary" onClick={goToVideo}>Message</button>
             </div>
         </div>
         <div id="slide2" className="card bg-slate-300 carousel-item w-full mt-20 glass">
@@ -114,7 +127,7 @@ const AboutUs = () => {
               >
                 30%
               </div>
-              <button className="btn btn-primary">Message</button>
+              <button className="btn btn-primary" onClick={goToVideo}>Message</button>
             </div>
         </div>
       </div>

@@ -2,7 +2,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 
 const Page = () => {
-    const [display, setDisplay] = useState(false);
     const joinBtnRef = useRef(null);
     const streamControlsRef = useRef(null);
     const [key, setKey] = useState("");
@@ -25,8 +24,8 @@ const Page = () => {
 
         if(client)
         {
-            alert(client.connectionState)
-            if (client.connectionState === 'CONNECTED') {
+            if (client.connectionState === 'CONNECTED') 
+            {
                 await client.leave();
             }
             client.on('user-published', handleUserJoined)
@@ -34,7 +33,7 @@ const Page = () => {
 
             let UID = await client.join("8f8841f090f64a6aaa64463c34fe0e8a", "main", "007eJxTYPgubXMhdlrJ+vsnebhuqG1a03ey72r+F3l3g1l7xTf8uMSgwGCRZmFhYphmYGmQZmaSaJaYmGhmYmJmnGxskpZqkGqRWDdfL60hkJGB7+8mVkYGCATxWRhyEzPzGBgAssggtA==+FsYa3XFcTXBM4eerF2JcKDBZpFhYmhmkGlgZpZiaJZomJiWYmJmbGycYmaakGqRaJObN00xoCGRnKoucxMEIhiM/CkJuYmcfAAAAzdh71", null);
             const tracks = await AgoraRTC.createMicrophoneAndCameraTracks();
-            let playerContainer = document.getElementById(`user-container-${key}`);
+            let playerContainer = document.getElementById(`user-container-${UID}`);
             if(playerContainer !== null) 
             {
                 playerContainer.remove();
@@ -121,6 +120,38 @@ const Page = () => {
 
     }
 
+    const toggleMic = async (e) =>
+    {
+        if(localTracks[0].muted)
+        {
+            await localTracks[0].setMuted(false);
+            e.target.innerText = 'Mic on'
+            e.target.style.backgroundColor = 'white'
+        }
+        else
+        {
+            await localTracks[0].setMuted(true);
+            e.target.innerText = 'Mic off'
+            e.target.style.backgroundColor = '#EE4B2B'
+        }
+    }
+
+    const toggleCamera = async (e) =>
+    {
+        if(localTracks[1].muted)
+        {
+            await localTracks[1].setMuted(false);
+            e.target.innerText = 'Camera on'
+            e.target.style.backgroundColor = 'white'
+        }
+        else
+        {
+            await localTracks[1].setMuted(true);
+            e.target.innerText = 'Camera off'
+            e.target.style.backgroundColor = '#EE4B2B'
+        }
+    }
+
     return (
         <div>
             <button ref={joinBtnRef} id="join-btn" onClick={joinStream}>Join Stream</button>
@@ -129,8 +160,8 @@ const Page = () => {
                 </div>
                 <div id="stream-controls" ref={streamControlsRef}>
                     <button className='btn' onClick={leaveAndRemoveLocalStream} id="leave-btn">Leave Stream</button>
-                    <button className='btn' id="mic-btn">Mic On</button>
-                    <button className='btn' id="camera-btn">Camera On</button>
+                    <button className='btn' onClick={toggleMic} id="mic-btn">Mic On</button>
+                    <button className='btn' onClick={toggleCamera} id="camera-btn">Camera On</button>
                 </div>
             </div>
         </div>

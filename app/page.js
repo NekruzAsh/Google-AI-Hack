@@ -3,30 +3,18 @@ import React from "react";
 import Navbar from "./Components/navbar";
 import { Grid, Stack } from "@mui/material";
 import { useRouter } from "next/navigation";
-import supabase from "./api/api";
 
 const Page = () => {
   const router = useRouter();
 
-  const handleRedirectEmail = () => {
+  const handleRedirectSignup = () => {
     router.push("/signup");
   };
-  const checkCurrentUser = async () => {
-    const { data, error } = await supabase.auth.getUser();
-    console.log(data.user);
+
+  const handleRedirectSignIn = () => {
+    router.push("/signin");
   };
 
-  const manuallyLogin = async () => {
-    try {
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email: "123456@gmail.com",
-        password: "123456",
-      });
-      alert("User successfully signed in", data);
-    } catch (error) {
-      alert("Error signing up:", error.message);
-    }
-  };
   return (
     <div>
       <Navbar />
@@ -55,12 +43,11 @@ const Page = () => {
                 Help out an elderly with loneliness and call them to
                 make them happy
               </p>
-
               <button
-                onClick={checkCurrentUser}
-                className="bg-red-500 text-white btn btn-neutral w-10/12"
+                onClick={handleRedirectSignup}
+                className="btn bg-indigo-800 text-white w-10/12"
               >
-                Sign up with Google
+                Continue with email
               </button>
               <Grid container className="flex justify-center items-center">
                 <Grid item xs={4.5}>
@@ -73,14 +60,9 @@ const Page = () => {
                   <div className="w-full h-0.5 bg-black"></div>
                 </Grid>
               </Grid>
+
               <button
-                onClick={handleRedirectEmail}
-                className="btn bg-indigo-800 text-white w-10/12"
-              >
-                Continue with email
-              </button>
-              <button
-                onClick={manuallyLogin}
+                onClick={handleRedirectSignIn}
                 className="bg-gray-600 text-white btn w-10/12"
               >
                 Manually login
@@ -91,12 +73,12 @@ const Page = () => {
                 Privacy, Policy, and our default notification
               </p>
 
-              <p>Already have an account? Sign In</p>
+              <p>Already have an account? <u onClick={handleRedirectSignIn}>Sign In</u></p>
             </Stack>
           </Grid>
 
           <Grid item xs={6}>
-            <img src="/image.png" className="w-full h-full" alt=""></img>
+            <img src="/image1.png" className="w-full h-full" alt=""></img>
           </Grid>
         </Grid>
       </div>
