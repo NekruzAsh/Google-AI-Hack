@@ -54,7 +54,6 @@ const page = () => {
                     password: password,
                 })
 
-                console.log(data);
                 router.push('/main')
 
             } catch (error) {

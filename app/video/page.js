@@ -4,7 +4,6 @@ import React, { useState, useRef, useEffect } from 'react';
 const Page = () => {
     const joinBtnRef = useRef(null);
     const streamControlsRef = useRef(null);
-    const [key, setKey] = useState("");
     const [localTracks, setLocalTracks] = useState({}); 
     const [client, setCLient] = useState();
     const [AgoraRTC, setAgoraRTC] = useState()
