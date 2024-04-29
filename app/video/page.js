@@ -152,7 +152,7 @@ const Page = () => {
     }
 
     return (
-        <div>
+        <div className='h-screen'>
             <button ref={joinBtnRef} id="join-btn" onClick={joinStream}>Join Stream</button>
             <div id="stream-wrapper">
                 <div id="video-streams">
