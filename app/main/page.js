@@ -33,7 +33,7 @@ const AboutUs = () => {
             <p className="text-black">Find a Match</p>
           </Grid>
           <Grid item xs={1.5} lg={0.75} textAlign="center">
-            <p className="text-black">Message</p>
+            <p className="text-black">Call</p>
           </Grid>
           <Grid item xs={1.5} lg={1.5} textAlign="left">
             <button onClick={myAccountButton} className="btn btn-neutral">My Account</button>

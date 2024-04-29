@@ -17,11 +17,6 @@ const page = () => {
     const [TOS, setTOS] = useState(false);
     const [age, setAge] = useState(false);
 
-    const style =
-    {
-        'color':'#3658D1'
-    }
-
     const turnIntoSignInPage = () =>
     {
         router.push('/signin')
