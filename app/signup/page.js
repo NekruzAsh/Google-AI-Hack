@@ -120,7 +120,7 @@ const page = () => {
                 <Grid item xs={4} >
                     <Stack spacing={2}>
 
-                        <h3>Sign up to "Friendly"</h3>
+                        <h3>Sign up to Friendli</h3>
 
                         <p>First Name</p>
                         <label className="input bg-white input-bordered flex items-center gap-2">
