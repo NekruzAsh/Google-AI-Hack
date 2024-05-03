@@ -11,7 +11,7 @@ Some of the challenges that we encountered was correctly setting up the gemini A
 We are proud of implementing the AI matching algorithm and developing this platform to give back to the seniors because they have done their best to educate us the youngsters. So, we were really happy to give back to them by implementing such features as the video calls and using AI to connect both the young and elderly in this world.
 ## What we learned
 We learned to identify the needs and emotional intelligence when coming up with our idea. In terms of technologies we learned how to use APIs correctly by fetching and calling. We also learned the two different ways we can develop a software like monolithic style or micro-services, which allows us to either scale or not scale our software.
-## What's next for Elderly Connection Initiative: Bridging Generations
+## What's next for Friendli
 In the future, we want keep working on this software and potentially start a non-profit so that our product ends up in every computer and desk in every elderly home in the United States. We want to refine our product, this includes making it responsive and accessible and possibly developing a mobile application for it so that it is available for mobile also. We want to first test this product in a nearby retirement home and see how it does within that home and we can identify the needs better by testing it there.
 
 
